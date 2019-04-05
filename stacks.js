@@ -182,3 +182,5 @@ test.push(9);
 test.push(3);
 
 // console.log(JSON.stringify(sortStack(test), null, 2));
+
+module.exports = Stack;
