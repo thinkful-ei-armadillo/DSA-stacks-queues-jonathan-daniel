@@ -121,14 +121,16 @@ function checkBracks(str){
 
   for (let i = 0; i < str.length; i++) {
     // console.log('loop');
-    if (str[i] === '(') {
+    if (str[i] === '(' || str[i] === '[' || str[i] === '{') {
       testStack.push(str[i]);
     }
   }
+
   console.log(JSON.stringify(testStack, null, 2));
+
   let j = 0;
   while (j < str.length) {
-    if (str[j] === ')') {
+    if (str[j] === ')' || str[j] === ']' || str[j] === '}') {
       testStack.pop();
     }
     j++;
@@ -143,35 +145,33 @@ function checkBracks(str){
   }
 }
 
-console.log(checkBracks('(([]))'));
+console.log(checkBracks('(([{}]))'));
 
-function checkThisStack(stack, targetStack, currentNode) {
-  let nextNode = peek(stack);
-
-  if (nextNode === null || nextNode <= currentNode) {
-    targetStack.push(currentNode);
-  }
-  else {
-    stack.push(targetStack.pop());
-    checkThisStack(stack, targetStack, currentNode);
-  }
-}
-
+// 5. sort stack
 
 function sortStack(stack) {
-  let workingStack = new Stack();
-  let currNode;
-  console.log(JSON.stringify(stack, null, 2));
-  while (stack.top !== null) {
-    currNode = stack.pop();
-    checkThisStack(stack, workingStack, currNode);
-  }
-  console.log(JSON.stringify(stack, null, 2));
-  while (workingStack.top !== null) {
-    stack.push(workingStack.pop());  
-  }
+  let workingStack = new Stack;
+  let currentNode;
 
-  return stack;
+  workingStack.push(stack.pop());
+
+  while (!isEmpty(stack)) {
+    currentNode = stack.pop();
+
+    if (isEmpty(workingStack)) {
+      workingStack.push(currentNode);
+    }
+
+    if (peek(workingStack) < currentNode) {
+      stack.push(workingStack.pop());
+      workingStack.push(currentNode);
+    }
+    else {
+      workingStack.push(currentNode);
+    }
+
+  }
+  return workingStack;
 }
 
 let test = new Stack();
@@ -181,4 +181,4 @@ test.push(6);
 test.push(9);
 test.push(3);
 
-console.log(sortStack(test));
+// console.log(JSON.stringify(sortStack(test), null, 2));
