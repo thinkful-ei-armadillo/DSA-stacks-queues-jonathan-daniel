@@ -59,6 +59,7 @@ main();
 // Remove McCoy from your stack and display the stack
 
 
+
 // 3. Check for palindromes using a stack
 // A palindrome is a word, phrase, or number that is spelled the same forward and backward.
 // For example, “dad” is a palindrome; “A man, a plan, a canal: Panama” is a palindrome if
