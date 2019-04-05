@@ -46,8 +46,13 @@ function main() {
   starTrek.push('Spock');
   starTrek.push('McCoy');
   starTrek.push('Scotty');
+  //console.log(peek(starTrek));
+  
+  starTrek.pop();
+  starTrek.pop();
+  starTrek.push('Scotty');
+  //console.log(display(starTrek));
 
-  console.log(JSON.stringify(starTrek, null, 2));
 }
 
 main();
@@ -57,6 +62,23 @@ main();
 // isEmpty(): allows you to check if the stack is empty or not
 // display(): to display the stack - what is the 1st item in your stack?
 // Remove McCoy from your stack and display the stack
+function peek(stack) {
+  if (stack.top === null) {
+    return 'stack is empty';
+  } 
+  return stack.top.data;
+}
+
+function isEmpty(stack) {
+  if (stack.top === null) {
+    return 'stack is empty';
+  }
+}
+
+function display(stack) {
+  return JSON.stringify(stack, null, 2);
+}
+
 
 
 
@@ -72,11 +94,20 @@ main();
 function is_palindrome(s) {
   s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
   // Your code goes here
+  const tStack = new Stack();
+  let reverseString = '';
+  for (let i = 0; i < s.length; i++) {
+    tStack.push(s[i]);
+  }
+  while (tStack.top !== null) {
+    reverseString += tStack.pop();
+  }
+  return reverseString === s;
 }
 
 // True, true, true, false
 console.log(is_palindrome('dad'));
-console.log(is_palindrome('A man, a plan, a canal: Panama'));
+ console.log(is_palindrome('A man, a plan, a canal: Panama'));
 console.log(is_palindrome('1001'));
 console.log(is_palindrome('Tauhida'));
 
