@@ -80,8 +80,6 @@ function display(stack) {
 }
 
 
-
-
 // 3. Check for palindromes using a stack
 // A palindrome is a word, phrase, or number that is spelled the same forward and backward.
 // For example, “dad” is a palindrome; “A man, a plan, a canal: Panama” is a palindrome if
@@ -106,9 +104,81 @@ function is_palindrome(s) {
 }
 
 // True, true, true, false
-console.log(is_palindrome('dad'));
- console.log(is_palindrome('A man, a plan, a canal: Panama'));
-console.log(is_palindrome('1001'));
-console.log(is_palindrome('Tauhida'));
+// console.log(is_palindrome('dad'));
+// console.log(is_palindrome('A man, a plan, a canal: Panama'));
+// console.log(is_palindrome('1001'));
+// console.log(is_palindrome('Tauhida'));
 
 // 
+
+// 4. Matching parentheses in an expression
+
+//  || str[i] === '[' || str[i] === '{' || str[i] === `"` || str[i] === `'`
+//  || str[i] === '[' || str[i] === '{' || str[i] === '"' || str[i] === `'`
+
+function checkBracks(str){
+  const testStack = new Stack();
+
+  for (let i = 0; i < str.length; i++) {
+    // console.log('loop');
+    if (str[i] === '(') {
+      testStack.push(str[i]);
+    }
+  }
+  console.log(JSON.stringify(testStack, null, 2));
+  let j = 0;
+  while (j < str.length) {
+    if (str[j] === ')') {
+      testStack.pop();
+    }
+    j++;
+  }
+
+  console.log(JSON.stringify(testStack, null, 2));
+
+  if (testStack.top === null) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+console.log(checkBracks('(([]))'));
+
+function checkThisStack(stack, targetStack, currentNode) {
+  let nextNode = peek(stack);
+
+  if (nextNode === null || nextNode <= currentNode) {
+    targetStack.push(currentNode);
+  }
+  else {
+    stack.push(targetStack.pop());
+    checkThisStack(stack, targetStack, currentNode);
+  }
+}
+
+
+function sortStack(stack) {
+  let workingStack = new Stack();
+  let currNode;
+  console.log(JSON.stringify(stack, null, 2));
+  while (stack.top !== null) {
+    currNode = stack.pop();
+    checkThisStack(stack, workingStack, currNode);
+  }
+  console.log(JSON.stringify(stack, null, 2));
+  while (workingStack.top !== null) {
+    stack.push(workingStack.pop());  
+  }
+
+  return stack;
+}
+
+let test = new Stack();
+test.push(1);
+test.push(4);
+test.push(6);
+test.push(9);
+test.push(3);
+
+console.log(sortStack(test));
