@@ -1,5 +1,4 @@
 'use strict';
-// Creates a node containing the data and a reference to the next item
 class _Node {
   constructor(value) {
     this.value=value,
@@ -8,11 +7,13 @@ class _Node {
 }
 
 class Queue {
+  // set head and tail for linked list
   constructor() {
     this._first = null;
     this._last = null;
   }
 
+  // adding method to add to the back of the linked list
   enqueue(data) {
     const node = new _Node(data);
 
@@ -23,18 +24,23 @@ class Queue {
     if (this.last) {
       this.last.next = node;
     }
-    //make the new node the last item on the queue
+
+    //set new node as the tail, this.last of the queue
     this.last = node;
   }
 
+  // removing method to delete from the end of the linked list
   dequeue() {
-    //if the queue is empty, there is nothing to return
+
+    // if theres is nothing in the queue, we have nothing to remove or return
     if (this.first === null) {
       return;
     }
+    // set the first node as now being the next node, as the last node will be removed.
     const node = this.first;
     this.first = this.first.next;
-    //if this is the last item in the queue
+
+    // if at last, set the node before the last as the new last by setting current this.last as null
     if (node === this.last) {
       this.last = null;
     }
@@ -58,7 +64,9 @@ function main() {
   display(q);
 }
 
-// refactor for double linked list that is queue
+main();
+
+// may need to refactor for double linked list functionality
 function display(ll) {
   let currentNode = ll.top;
   // if empty...
